@@ -1,5 +1,3 @@
-
-
 import enum
 
 
@@ -7,9 +5,11 @@ class EventType(enum.Enum):
     """
     EventType for the Rload.
     """
+
     ADDED = 0
     MODIFIED = 1
     REMOVED = 2
+
 
 class Event:
     """
@@ -17,7 +17,7 @@ class Event:
 
     Example:
     ---
-        
+
         >>> event = Event()
         >>> @event.on('test')
         >>> def test_handler(num):
@@ -26,6 +26,7 @@ class Event:
         >>> event.emit('test', 10)
 
     """
+
     def __init__(self):
         self.handlers = {}
 
@@ -35,7 +36,8 @@ class Event:
                 handler(*args, **kwargs)
 
     def on(self, type, handler):
-        _type = type 
+        _type = type
+
         def decorator(handler):
             type = _type or handler.__name__
             if type in self.handlers:
@@ -44,17 +46,13 @@ class Event:
                 self.handlers[type] = [handler]
             return handler
 
-        return decorator(handler) if handler \
-            else decorator 
+        return decorator(handler) if handler else decorator
 
     def remove(self, type):
         try:
             self.handlers.pop(type)
         except Exception:
-            raise ValueError('It looks like the handler is not yet registered?')
-
+            raise ValueError("It looks like the handler is not yet registered?")
 
     def __len__(self):
         return len(self.handlers)
-
-    

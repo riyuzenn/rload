@@ -22,6 +22,7 @@
 import sys
 import os
 
+
 def get_root_path(import_name: str) -> str:
     """
     Find the root path for the module.
