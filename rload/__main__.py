@@ -19,40 +19,20 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import sys
-import os
-from importlib import import_module
+from .cli import app
+from .cli import COLOR_SUPPORTED
+from .cli import PluginError
 
-def get_root_path(import_name: str) -> str:
-    """
-    Find the root path for the module.
-    Argument:
-        import_name (str):
-            The name of the module to get the root path.
-    """
-
-    module = sys.modules.get(import_name)
-
-    if module is not None and hasattr(module, "__file__"):
-        return os.path.dirname(os.path.realpath(module.__file__))
-
-def import_string(module: str):
-    """
-    Import the given module path.
-    """
-
-    try:
-        _module, func = module.strip(' ').rsplit('.', 1)
-
-    except ValueError:
-        raise ImportError('It looks like module {} is not a valid module'.format(module))
-
-
-    mod = import_module(_module)
     
-    try:
-        return (mod, getattr(mod, func))
-    except AttributeError:
-        # TODO: NO ATTRIBUTE
-        raise ImportError('Module has no attribute: %s' % (func))
-    
+if __name__ == "__main__":    
+    if not COLOR_SUPPORTED:
+        raise PluginError(
+        f"""
+    {'-'*60}
+    You need color plugin to use the app.
+    `pip install hypecli[color]` will fix the issue
+    or `pip install colorama`
+    {'-'*60}
+        """)
+
+    app.run()
