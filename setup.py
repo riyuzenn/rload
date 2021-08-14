@@ -48,5 +48,11 @@ setup(
     license = 'MIT',
     version = __version__,
     packages = [p for p in find_packages() if 'test' not in p],
-    install_requires=get_requirements()
+    install_requires=get_requirements(),
+    entry_points = {
+        "console_scripts": [
+            "rload = rload.__main__:run",
+            "rloader = rload.__main__:run" 
+        ]
+    },
 )

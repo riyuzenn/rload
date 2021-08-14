@@ -23,8 +23,8 @@ from .cli import app
 from .cli import COLOR_SUPPORTED
 from .cli import PluginError
 
-    
-if __name__ == "__main__":    
+
+def run():
     if not COLOR_SUPPORTED:
         raise PluginError(
         f"""
@@ -36,3 +36,6 @@ if __name__ == "__main__":
         """)
 
     app.run()
+
+if __name__ == "__main__":    
+    run()
