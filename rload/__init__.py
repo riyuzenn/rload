@@ -25,5 +25,5 @@ from .event import EventType
 from .watcher import FileWatcher
 from .watcher import PythonWatcher
 
-__version__ = "0.0.0"
+__version__ = "0.0.1"
 __all__ = ["Rload", "EventType", "FileWatcher", "PythonWatcher"]
